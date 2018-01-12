@@ -409,7 +409,8 @@ class WebSocketHandler(websocket.WebSocketHandler):
         for instrument in instruments:
             ss = generate_security_status(
                 instrument,
-                req_id)
+                req_id,
+                self.application)
             self.write_message(str(json.dumps(ss, cls=JsonEncoder)))
 
             # Snapshot + Updates
@@ -448,7 +449,8 @@ class WebSocketHandler(websocket.WebSocketHandler):
                 market_depth,
                 entries,
                 req_id,
-                self.is_broker())
+                self.is_broker(),
+                self.application)
             self.write_message(str(json.dumps(md, cls=JsonEncoder)))
 
             # Snapshot + Updates

@@ -419,8 +419,8 @@ def generate_trade_history(session, page_size = None, offset = None, sort_column
     return trade_list
 
 
-def generate_security_status(symbol, req_id):
-    md_subscriber = MarketDataSubscriber.get(symbol)
+def generate_security_status(symbol, req_id, application):
+    md_subscriber = MarketDataSubscriber.get(symbol, application)
 
     ss = {
         "MsgType": "f",
@@ -437,9 +437,9 @@ def generate_security_status(symbol, req_id):
 
     return ss
 
-def generate_md_full_refresh(symbol, market_depth, entries, req_id, show_username=False):
+def generate_md_full_refresh(symbol, market_depth, entries, req_id, show_username=False, application=None):
     entry_list = []
-    md_subscriber = MarketDataSubscriber.get(symbol)
+    md_subscriber = MarketDataSubscriber.get(symbol, application)
 
     for entry_type in entries:
         if entry_type == '0' or entry_type == '1':

@@ -536,6 +536,7 @@ def processSecurityListRequest(session, msg):
   for instrument in instruments:
     response['Instruments'].append({
       'Symbol': instrument.symbol,
+      'Market': instrument.market,
       'Currency': instrument.currency,
       'Description': instrument.description
     })
@@ -1844,3 +1845,21 @@ def processDepositListRequest(session, msg):
     'DepositListGrp'    : deposit_list
   }
   return json.dumps(response_msg, cls=JsonEncoder)
+
+@login_required
+@broker_user_required
+@verify_permission
+def processCancelWithdraw(session, msg):
+    return json.dumps({
+        "MsgType": "U71",
+        "WithdrawReqID": msg.get("WithdrawReqID")
+    }, cls=JsonEncoder)
+
+@login_required
+@broker_user_required
+@verify_permission
+def processCommentWithdraw(session, msg):
+    return json.dumps({
+        "MsgType": "U79",
+        "WithdrawReqID": msg.get("WithdrawReqID")
+    }, cls=JsonEncoder)

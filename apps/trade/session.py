@@ -136,6 +136,12 @@ class Session(object):
     elif msg.type == 'U54': # ApiKey Revoke Request
       return processApiKeyRevokeRequest(self, msg)
 
+    elif msg.type == 'U70': # Cancel Withdraw
+      return processCancelWithdraw(self, msg)
+
+    elif msg.type == 'U78': # Comment Withdraw
+      return processCommentWithdraw(self, msg)
+
     elif msg.type == 'B0':  # Deposit Payment Confirmation
       return processProcessDeposit(self, msg)
 
